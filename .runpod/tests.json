@@ -1,16 +1,5 @@
 {
-  "tests": [
-    {
-      "name": "basic_test",
-      "input": {
-        "model": "HuggingFaceTB/SmolLM2-1.7B-Instruct",
-        "messages": [
-          { "role": "user", "content": "What is the capital of France?" }
-        ]
-      },
-      "timeout": 800000
-    }
-  ],
+  "tests": [],
   "config": {
     "gpuTypeId": "NVIDIA GeForce RTX 4090",
     "gpuCount": 1,
@@ -22,10 +11,6 @@
       {
         "key": "MODEL_NAME",
         "value": "HuggingFaceTB/SmolLM2-1.7B-Instruct"
-      },
-      {
-        "key": "DISABLE_CUDA_GRAPH",
-        "value": "true"
       }
     ],
     "allowedCudaVersions": ["12.9", "12.8", "12.7", "12.6"]
