@@ -1,4 +1,4 @@
-FROM lmsysorg/sglang:v0.5.9-cu129
+FROM lmsysorg/sglang:v0.5.9-cu129-amd64
 
 # Install uv package manager
 RUN curl -Ls https://astral.sh/uv/install.sh | sh \
