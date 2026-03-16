@@ -1,17 +1,9 @@
 FROM lmsysorg/sglang:v0.5.9-cu129-amd64
 
-# Install uv package manager
-RUN curl -Ls https://astral.sh/uv/install.sh | sh \
-    && ln -sf /root/.local/bin/uv /usr/local/bin/uv
-ENV PATH="/root/.local/bin:${PATH}"
-
-# Set working directory to the one already used by the base image
 WORKDIR /sgl-workspace
 
-# install dependencies
 COPY requirements.txt ./
-RUN --mount=type=cache,target=/root/.cache/uv \
-    uv pip install --system -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # copy source files
 COPY handler.py engine.py utils.py download_model.py test_input.json ./
@@ -36,14 +28,6 @@ ENV MODEL_NAME=$MODEL_NAME \
     HF_HOME="${BASE_PATH}/huggingface-cache/hub" \
     HF_HUB_ENABLE_HF_TRANSFER=1
 
-# Model download script execution
-# Ensure this script uses python3 and handles paths correctly relative to /app if needed
-RUN --mount=type=secret,id=HF_TOKEN,required=false \
-    if [ -f /run/secrets/HF_TOKEN ]; then \
-        export HF_TOKEN=$(cat /run/secrets/HF_TOKEN); \
-    fi && \
-    if [ -n "$MODEL_NAME" ]; then \
-        python3 download_model.py; \
-    fi
+RUN if [ -n "$MODEL_NAME" ]; then python3 download_model.py; fi
 
 CMD ["python3", "handler.py"]
