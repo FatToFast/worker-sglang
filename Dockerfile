@@ -2,6 +2,8 @@ FROM lmsysorg/sglang:v0.5.9-cu129-amd64
 
 WORKDIR /sgl-workspace
 
+RUN pip install --no-cache-dir git+https://github.com/huggingface/transformers.git
+
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
