@@ -1,4 +1,5 @@
 {
+  "skipTests": true,
   "tests": [],
   "config": {
     "gpuTypeId": "NVIDIA GeForce RTX 4090",
